@@ -11,7 +11,6 @@ use App\Http\Controllers\ActivityController;
 // Auth Routes
 Route::post("register",[AuthController::class,"register"]);
 Route::post("login",[AuthController::class,"login"]);
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::post("logout",[AuthController::class,"logout"]);
 });
@@ -31,9 +30,12 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // Level Routes
-Route::get("showLevelActivities/{id}",[LevelController::class,"showLevelActivities"]);
-Route::get("getLevelScore/{id}",[LevelController::class,"getLevelScore"]);
-Route::get("getLevelStatus/{id}",[LevelController::class,"getLevelStatus"]);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get("showLevelActivities/{id}",[LevelController::class,"showLevelActivities"]);
+    Route::get("getLevelScore/{id}",[LevelController::class,"getLevelScore"]);
+    Route::get("getLevelStatus/{id}",[LevelController::class,"getLevelStatus"]);
+});
+
 
 // Activity Routes
 Route::get("showActivity/{id}",[ActivityController::class,"showActivity"]);

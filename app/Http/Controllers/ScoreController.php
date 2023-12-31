@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Level;
 use App\Models\Score;
-use App\Models\Activity;
 use App\Models\Profile;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -49,41 +48,41 @@ class ScoreController extends Controller
 
     public function updateLevelScore($id)
     {
-        $score=Score::where('level_id',$id)->pluck("activityScore")->toArray();
+        $score=Score::where('level_id',$id)->where('user_id', auth()->user()->id)->pluck("activityScore")->toArray();
         $score=array_sum($score);   // return score
 
-        $filteredRecords = DB::table('_level_scores')->where('user_id', auth()->user()->id)
+        $filteredRecords = DB::table('level_scores')->where('user_id', auth()->user()->id)
         ->where("level_id",$id)->first();
 
         if(!$filteredRecords)
         {
-            DB::table('_level_scores')->insert([
+            DB::table('level_scores')->insert([
                 "user_id" =>auth()->user()->id,
                 "level_id"=>$id,
                 "score"=>$score]);
         }
-        DB::table('_level_scores')->where('user_id', auth()->user()->id)
+        else{
+        DB::table('level_scores')->where('user_id', auth()->user()->id)
         ->where("level_id",$id)->update([
             "score"=>$score
         ]);
+        }
+
     }
 
     public function updateLevelStatus($id)
     {
-        $level=Level::where("id",$id)->first();
-        $filteredRecords = DB::table('_level_scores')->where('user_id', auth()->user()->id)
-        ->where("level_id",$id)->pluck("score")->first();
+        $filteredRecords = DB::table('level_scores')->where('user_id', auth()->user()->id)
+        ->where("level_id",$id)->first();
 
-        if($filteredRecords >= 3)
+        if($filteredRecords->score >= 3)
         {
-            $level->update([
-                "unlocked"=>true
-            ]);
+            DB::table('level_scores')->where('user_id', auth()->user()->id)
+            ->where("level_id",$id)->update(["unlocked"=>true]);
         }
         else{
-            $level->update([
-                "unlocked"=>false
-            ]);
+            DB::table('level_scores')->where('user_id', auth()->user()->id)
+            ->where("level_id",$id)->update(["unlocked"=>false]);
         }
     }
 }

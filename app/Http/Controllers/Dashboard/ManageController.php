@@ -13,7 +13,6 @@ class ManageController extends Controller
     {
         Level::create([
             "name"=>$request->name,
-            "unlocked"=>$request->unlocked
         ]);
         return response()->json(["Level Created Success"]);
     }
