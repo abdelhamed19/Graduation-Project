@@ -1,16 +1,18 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LevelController;
 use App\Http\Controllers\ScoreController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\LevelController;
+use App\Http\Controllers\Profile\AuthController;
+use App\Http\Controllers\Home\ActivityController;
+use App\Http\Controllers\Profile\ProfileController;
 
 
 // Auth Routes
 Route::post("register",[AuthController::class,"register"]);
 Route::post("login",[AuthController::class,"login"]);
+Route::post('forgot-password', [AuthController::class, 'sendOtp']);
+Route::post('reset-password', [AuthController::class, 'resetPassword']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post("logout",[AuthController::class,"logout"]);
 });
@@ -39,6 +41,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Activity Routes
 Route::get("showActivity/{id}",[ActivityController::class,"showActivity"]);
+Route::get("getTotalActivities",[ActivityController::class,"getTotalActivities"]);
+Route::middleware('auth:sanctum')->group(function () {
+Route::get("getCompletedActivities",[ActivityController::class,"getCompletedActivities"]);
+Route::get("getInCompletedActivities",[ActivityController::class,"getInCompletedActivities"]);
+});
+
 
 // Score Routes
 Route::middleware('auth:sanctum')->group(function () {
