@@ -54,14 +54,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class)->withDefault();
     }
-
-    public static function rules(Request $request)
+    public function writings()
     {
-        $request->validate([
-            "name"=>["required","string","min:3"],
-            'email' => ["required","email","unique:users,email"],
-            'password' => ["required","min:6","confirmed"],
-            'profile_image' =>["image","mimes:jpeg,png,jpg,gif"],
-        ]);
+        return $this->hasMany(Writing::class);
+    }
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

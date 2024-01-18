@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Http\Resources\ProfileResource;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
@@ -14,8 +15,9 @@ class ProfileController extends Controller
     public function profile()
     {
         $data=User::where("id",auth()->user()->id)->first();
-        $userData=$data->profile->totalScore;
-        return response()->json([$data,$userData]);
+        $ProfileTotalScore=Profile::where("id",auth()->user()->id)->pluck("totalScore");
+        //$totalScore=new ProfileResource($ProfileTotalScore);
+        return response()->json([$data,"totalScore"=>$ProfileTotalScore]);
     }
     public function changePassword(Request $request)
     {

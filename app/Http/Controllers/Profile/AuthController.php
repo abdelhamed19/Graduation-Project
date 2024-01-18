@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Profile;
 
 use App\Models\User;
 use App\Models\Profile;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-        User::rules($request);
+        $request->validated();
         $user = User::create(
             [
                 "name" => $request->name,
@@ -27,16 +27,13 @@ class AuthController extends Controller
         return response()->json(['token' => $token,"user-info"=>$user], 201);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            "email"=>["required", "email"],
-            "password" => ["required","string"]
-        ]);
+        $request->validated();
         $user=User::where("email",$request->email)->first();
         if(!$user || !Hash::check($request->password,$user->password))
         {
-            return response()->json(["message"=>"Invalid Credentials"],401);
+            return response()->json(["message"=>"البريد الإلكرتوني أو كلمة المرور غير صحيحة"],401);
         }
         $token = $user->createToken('RegisterToken')->plainTextToken;
         return response()->json(['token' => $token,"value"=>$user,"status"=> 201,"message"=>"Successfully login"]);
