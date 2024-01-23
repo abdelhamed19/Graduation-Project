@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("level_id")->constrained("levels")->cascadeOnDelete();
             $table->string("title");
-            $table->string('description');
+            $table->json('description');
             $table->enum("type",["mental","physical","emotional","social"]);
             $table->timestamps();
         });

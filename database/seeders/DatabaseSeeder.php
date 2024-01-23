@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            "name"=>"Abdelhamed",
+            "name"=>"abdelhamed",
             "email"=>"abdelhamed@gmail.com",
             "password"=>123456789,
             ]);
@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
                 ]);
         $this->call(LevelSeeder::class);
         $this->call(ActivitySeeder::class);
+        $this->call(TaskSeeder::class);
+        $this->call(WritingSeeder::class);
     }
 }

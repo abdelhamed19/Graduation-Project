@@ -1,21 +1,8 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ScoreController;
-use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Home\LevelController;
-use App\Http\Controllers\Profile\AuthController;
-use App\Http\Controllers\Home\ActivityController;
-use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Home\{HomeController,LevelController,ActivityController};
+use App\Http\Controllers\Writings\{NotesController,TasksController};
 
-
-// Auth Routes
-Route::post("register",[AuthController::class,"register"]);
-Route::post("login",[AuthController::class,"login"]);
-Route::post('forgot-password', [AuthController::class, 'sendOtp']);
-Route::post('reset-password', [AuthController::class, 'resetPassword']);
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post("logout",[AuthController::class,"logout"]);
-});
 
 // Home Routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -23,13 +10,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("getUserData",[HomeController::class,"getUserData"]);
 });
 
-// Profile Routes
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get("profile",[ProfileController::class,"profile"]);
-    Route::post("changePassword",[ProfileController::class,"changePassword"]);
-    Route::get("getTestScore",[ProfileController::class,"getTestScore"]);
-    Route::get("getTotalScore",[ProfileController::class,"getTotalScore"]);
-});
 
 // Level Routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -48,14 +28,18 @@ Route::get("getInCompletedActivities",[ActivityController::class,"getInCompleted
 });
 
 
-// Score Routes
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post("storeResult/{id}",[ScoreController::class,"storeResult"]);
+//Notes
+Route::middleware('auth:sanctum')->group(function (){
+    Route::apiResource('notes', NotesController::class);
 });
 
-// Test Routes
-// Route::middleware('auth:sanctum')->group(function () {
 
-// });
+//Tasks
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('tasks/{created_at}',[TasksController::class,"show"]);
+    Route::post('tasks', [TasksController::class,"store"]);
+});
+
 
 require __DIR__.'/dashboard.php';
+require __DIR__.'/user.php';

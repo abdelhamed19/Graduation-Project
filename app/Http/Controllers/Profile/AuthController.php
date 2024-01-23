@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Helpers\BaseResponse;
 use App\Models\User;
 use App\Models\Profile;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,6 @@ class AuthController extends Controller
 {
     public function register(UserRequest $request)
     {
-        $request->validated();
         $user = User::create(
             [
                 "name" => $request->name,
@@ -24,24 +24,23 @@ class AuthController extends Controller
         );
         $token = $user->createToken('RegisterToken')->plainTextToken;
         Profile::create(["user_id" => $user->id]);
-        return response()->json(['token' => $token,"user-info"=>$user], 201);
+       return BaseResponse::MakeResponse(["token"=>$token],true,["success message"=>"Registration done"]);
     }
 
     public function login(LoginRequest $request)
     {
-        $request->validated();
         $user=User::where("email",$request->email)->first();
         if(!$user || !Hash::check($request->password,$user->password))
         {
-            return response()->json(["message"=>"البريد الإلكرتوني أو كلمة المرور غير صحيحة"],401);
+            return BaseResponse::MakeResponse(null,false,["Error message"=>" البريد الإلكتروني أو كلمة المرور غير صحيحه"]);
         }
         $token = $user->createToken('RegisterToken')->plainTextToken;
-        return response()->json(['token' => $token,"value"=>$user,"status"=> 201,"message"=>"Successfully login"]);
+        return BaseResponse::MakeResponse(["token"=>$token],true,["success message"=>"Login success"]);
     }
     public function logout(User $user)
     {
         $user->tokens()->delete();
-        return response()->json(['message' => 'Successfully logged out']);
+        return BaseResponse::MakeResponse(null,false,["success message"=>"Logout success"]);
     }
 
 }

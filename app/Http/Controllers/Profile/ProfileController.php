@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Http\Resources\ProfileResource;
 use App\Models\User;
 use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Helpers\BaseResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\ChangePassword;
 
 class ProfileController extends Controller
 {
@@ -16,33 +16,28 @@ class ProfileController extends Controller
     {
         $data=User::where("id",auth()->user()->id)->first();
         $ProfileTotalScore=Profile::where("id",auth()->user()->id)->pluck("totalScore");
-        //$totalScore=new ProfileResource($ProfileTotalScore);
-        return response()->json([$data,"totalScore"=>$ProfileTotalScore]);
+        return BaseResponse::MakeResponse(["user-data"=>$data,"totalScore"=>$ProfileTotalScore,],true,["success code"=>200]);
     }
-    public function changePassword(Request $request)
+    public function changePassword(ChangePassword $request)
     {
-        $request->validate([
-            "oldPassword"=>["required", "string"],
-            "newPassword"=>["required", "confirmed","string"]
-        ]);
-        $user=User::find(Auth::user()->id);
 
+        $user=User::find(Auth::user()->id);
         if(!Hash::check($request->oldPassword, $user->password))
         {
-            return response()->json(["message"=>"Old password is incorrect"],401);
+            return BaseResponse::MakeResponse(null,false,["Error message"=>" كلمات المرور القديمه غير صحيحه"]);
         }
         $user->password = Hash::make($request->newPassword);
         $user->save();
-        return response()->json(["message"=>"Password changed successfully"],200);
+        return BaseResponse::MakeResponse(null,true,["success message"=>" تم تغيير كلمة المرور بنجاح "]);
     }
     public function getTestScore()
     {
         $testScore=Profile::where("user_id",auth()->user()->id)->pluck("testScore")->first();
-        return response()->json(["test Score"=>$testScore,"Status"=>200]);
+        return BaseResponse::MakeResponse(["test Score"=>$testScore],true,["success code"=>200]);
     }
     public function getTotalScore()
     {
         $totalScore=Profile::where("user_id",auth()->user()->id)->pluck("totalScore")->first();
-        return response()->json(["totalScore" => $totalScore]);
+        return BaseResponse::MakeResponse(["Total Score"=>$totalScore],true,["success message"=>200]);
     }
 }

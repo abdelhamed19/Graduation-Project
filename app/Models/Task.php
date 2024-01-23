@@ -9,6 +9,9 @@ class Task extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $casts = [
+        'body' => 'array'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

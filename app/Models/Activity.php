@@ -9,6 +9,9 @@ class Activity extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $casts = [
+        'description' => 'array'
+    ];
 
     public function level()
     {

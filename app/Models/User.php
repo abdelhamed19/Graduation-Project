@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'image'
+        'image',
     ];
     public $timestamps = false;
 
