@@ -12,7 +12,7 @@ class TasksController extends Controller
 {
     public function show($created_at)
     {
-        $tasks = Task::where("user_id",auth()->user()->id)->whereDay("created_at",$created_at)->get();
+        $tasks = Task::where("user_id",auth()->user()->id)->whereDate("created_at",$created_at)->get();
         if($tasks->count() > 0)
         {
             return BaseResponse::MakeResponse(TaskResource::collection($tasks),true,200);

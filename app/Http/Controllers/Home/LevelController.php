@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Models\Level;
+use App\Helpers\BaseResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -11,8 +12,7 @@ class LevelController extends Controller
     public function showLevelActivities($id)
     {
         $level= Level::with("activities")->find($id)->activities;
-        //$types = $level->activities->pluck('type');
-        return response()->json(["Activities"=> $level]);
+        return BaseResponse::MakeResponse($level,true,"Level Activities");
     }
     public function getLevelScore($id)
     {
@@ -22,7 +22,7 @@ class LevelController extends Controller
         {
             $level=0;
         }
-        return response()->json(["Level Score" => $level]);
+        return BaseResponse::MakeResponse($level,true,"Levels Score");
     }
 
     public function getLevelStatus($id)
@@ -31,8 +31,10 @@ class LevelController extends Controller
         where("user_id",auth()->user()->id)->pluck("unlocked")->first();
         if($levelStatus == null)
         {
-            $levelStatus=0;
+            $levelStatus=false;
+            return BaseResponse::MakeResponse(["unlocked"=>$levelStatus],true,"level Status");
         }
-        return response()->json(["Unlocked" => $levelStatus]);
+        return BaseResponse::MakeResponse(["unlocked"=>$levelStatus=true],true,"level Status");
+
     }
 }

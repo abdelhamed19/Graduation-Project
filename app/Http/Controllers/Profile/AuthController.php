@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Models\{Role,User,Profile};
+use Illuminate\Http\Request;
 use App\Helpers\BaseResponse;
-use App\Models\User;
-use App\Models\Profile;
+use App\Http\Requests\{UserRequest,LoginRequest};
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -24,6 +23,10 @@ class AuthController extends Controller
         );
         $token = $user->createToken('RegisterToken')->plainTextToken;
         Profile::create(["user_id" => $user->id]);
+        Role::create([
+        "user_id" => $user->id,
+        "username"=>$user->name,
+        ]);
        return BaseResponse::MakeResponse(["token"=>$token],true,["success message"=>"Registration done"]);
     }
 
@@ -35,11 +38,11 @@ class AuthController extends Controller
             return BaseResponse::MakeResponse(null,false,["Error message"=>" البريد الإلكتروني أو كلمة المرور غير صحيحه"]);
         }
         $token = $user->createToken('RegisterToken')->plainTextToken;
-        return BaseResponse::MakeResponse(["token"=>$token],true,["success message"=>"Login success"]);
+        return BaseResponse::MakeResponse(["token"=>$token,"role"=>$user->role->role],true,["success message"=>"Login success"]);
     }
-    public function logout(User $user)
+    public function logout(Request $request)
     {
-        $user->tokens()->delete();
+        auth()->user()->tokens()->delete();
         return BaseResponse::MakeResponse(null,false,["success message"=>"Logout success"]);
     }
 

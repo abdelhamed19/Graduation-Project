@@ -22,10 +22,6 @@ Route::middleware('auth:sanctum')->group(function () {
 // Activity Routes
 Route::get("showActivity/{id}",[ActivityController::class,"showActivity"]);
 Route::get("getTotalActivities",[ActivityController::class,"getTotalActivities"]);
-Route::middleware('auth:sanctum')->group(function () {
-Route::get("getCompletedActivities",[ActivityController::class,"getCompletedActivities"]);
-Route::get("getInCompletedActivities",[ActivityController::class,"getInCompletedActivities"]);
-});
 
 
 //Notes
@@ -39,7 +35,6 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('tasks/{created_at}',[TasksController::class,"show"]);
     Route::post('tasks', [TasksController::class,"store"]);
 });
-
 
 require __DIR__.'/dashboard.php';
 require __DIR__.'/user.php';

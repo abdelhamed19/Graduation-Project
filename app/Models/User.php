@@ -52,7 +52,10 @@ class User extends Authenticatable
     }
     public function profile()
     {
-        return $this->hasOne(Profile::class)->withDefault();
+        return $this->hasOne(Profile::class)->withDefault([
+            'totalScore' => 0,
+            'testScore' => 0,
+        ]);
     }
     public function writings()
     {
@@ -61,5 +64,9 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+    public function role()
+    {
+        return $this->hasOne(Role::class)->withDefault();
     }
 }

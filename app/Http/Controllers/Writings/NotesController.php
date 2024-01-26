@@ -17,6 +17,10 @@ class NotesController extends Controller
     public function index()
     {
         $notes=Auth::user()->writings;
+        if($notes->count()==0)
+        {
+            return BaseResponse::MakeResponse(null,false,"لا يوجد ملاحظات");
+        }
         return BaseResponse::MakeResponse(NotesResource::collection($notes),true,200);
     }
     /**

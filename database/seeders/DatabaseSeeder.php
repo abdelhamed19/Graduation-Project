@@ -14,17 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            "name"=>"abdelhamed",
-            "email"=>"abdelhamed@gmail.com",
-            "password"=>123456789,
-            ]);
-
-            User::create([
-                "name"=>"Ahmed",
-                "email"=>"ahmed@gmail.com",
-                "password"=>123456789,
-                ]);
+        $this->call(UserSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(LevelSeeder::class);
         $this->call(ActivitySeeder::class);
         $this->call(TaskSeeder::class);
