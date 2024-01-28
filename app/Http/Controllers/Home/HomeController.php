@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         $levels= Level::all()->pluck("name");
-        return BaseResponse::MakeResponse($levels,true,"Levels");
+        return BaseResponse::MakeResponse(["levels"=>$levels],true,["success message"=>200]);
     }
     public function getUserData()
     {
@@ -21,7 +21,7 @@ class HomeController extends Controller
         {
             $totalScore=0;
         }
-        return BaseResponse::MakeResponse([$username, $totalScore],true,["message"=>"Levels"]);
+        return BaseResponse::MakeResponse(["username"=>$username,"totalscore"=> $totalScore],true,["success message"=>200]);
     }
 
 }

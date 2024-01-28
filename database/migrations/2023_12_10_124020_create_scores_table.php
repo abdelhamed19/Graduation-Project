@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId("activity_id")->constrained("activities")->cascadeOnDelete();
             $table->integer("level_id")->default(0);
             $table->integer("activityScore")->default(0);
+            $table->string("activityAnswers")->nullable();
             $table->timestamps();
         });
     }

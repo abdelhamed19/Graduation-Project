@@ -11,7 +11,7 @@ class Profile extends Model
     protected $fillable = [
         'user_id',
         'totalScore',
-        'testScore',
+        'isPatient',
     ];
 
     public function user()

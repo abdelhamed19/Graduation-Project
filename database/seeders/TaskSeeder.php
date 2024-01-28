@@ -14,30 +14,30 @@ class TaskSeeder extends Seeder
     public function run(): void
     {
         Task::create([
-            "user_id"=>1,
+            "user_id"=>11,
             //"body"=>["Task1", "Task1", "Task1","Task1"]
             "body"=>["Task1", "Task1", "Task1","Task1"]
         ]);
         Task::create([
-            "user_id"=>1,
+            "user_id"=>11,
             "body"=>["Task2", "Task2", "Task2","Task2"]
         ]);
         Task::create([
-            "user_id"=>1,
+            "user_id"=>11,
             "body"=>["Task3", "Task3", "Task3","Task3"]
         ]);
 
         // User 2
         Task::create([
-            "user_id"=>2,
+            "user_id"=>12,
             "body"=>["Task1", "Task1", "Task1","Task1"]
         ]);
         Task::create([
-            "user_id"=>2,
+            "user_id"=>12,
             "body"=>["Task2", "Task2", "Task2","Task2"]
         ]);
         Task::create([
-            "user_id"=>2,
+            "user_id"=>12,
             "body"=>["Task3", "Task3", "Task3","Task3"]
         ]);
     }

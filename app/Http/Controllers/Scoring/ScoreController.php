@@ -12,6 +12,7 @@ class ScoreController extends Controller
     public function storeResult(Request $request,$id)
     {
         $activity=Activity::find($id);
+
         Score::updateOrCreate(
             [
                 "user_id"=>auth()->user()->id,
@@ -21,13 +22,14 @@ class ScoreController extends Controller
                  "user_id" =>auth()->user()->id,
                  "activity_id"=>$id,
                  "level_id"=>$activity->level_id,
-                 "activityScore"=> $request->score
+                 "activityScore"=> $request->score,
+                "activityAnswers"=>$request->answer,
             ]
         );
         callbacks::updateTotalScore();
         callbacks::updateLevelScore($activity->level_id);
         callbacks::updateLevelStatus($activity->level_id);
-        return BaseResponse::MakeResponse(null,true,"Score saved successfully");
+        return BaseResponse::MakeResponse(null,true,["success message"=>200]);
     }
 
 }

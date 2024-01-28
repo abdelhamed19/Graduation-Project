@@ -14,30 +14,30 @@ class WritingSeeder extends Seeder
     public function run(): void
     {
         Writing::create([
-            "user_id" => 1,
+            "user_id" => 11,
             "body" => "Writings 1"
         ]);
 
         Writing::create([
-            "user_id" => 1,
+            "user_id" => 11,
             "body" => "Writings 2"
         ]);
         Writing::create([
-            "user_id" => 1,
+            "user_id" => 11,
             "body" => "Writings 3"
         ]);
         // User 2
         Writing::create([
-            "user_id" => 2,
+            "user_id" => 12,
             "body" => "Writings 1"
         ]);
 
         Writing::create([
-            "user_id" => 2,
+            "user_id" => 12,
             "body" => "Writings 2"
         ]);
         Writing::create([
-            "user_id" => 2,
+            "user_id" => 12,
             "body" => "Writings 3"
         ]);
     }

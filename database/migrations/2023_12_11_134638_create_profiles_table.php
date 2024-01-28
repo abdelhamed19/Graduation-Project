@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
             $table->integer("totalScore")->default(0);
-            $table->integer("testScore")->default(0);
+            $table->enum("isPatient",["true","false"])->default("false");
             $table->timestamps();
         });
     }

@@ -15,9 +15,9 @@ class TasksController extends Controller
         $tasks = Task::where("user_id",auth()->user()->id)->whereDate("created_at",$created_at)->get();
         if($tasks->count() > 0)
         {
-            return BaseResponse::MakeResponse(TaskResource::collection($tasks),true,200);
+            return BaseResponse::MakeResponse(["tasks"=>TaskResource::collection($tasks)],true,["success message"=>200]);
         }
-            return BaseResponse::MakeResponse(null,false,"لا يوجد قائمه بهذا التاريخ");
+            return BaseResponse::MakeResponse(null,true,["error message"=>"لا يوجد قائمه بهذا التاريخ"]);
     }
     public function store(Request $request)
     {
@@ -28,7 +28,7 @@ class TasksController extends Controller
             "user_id"=>auth()->user()->id,
             "body"=>json_decode($request->body)
         ]);
-        return BaseResponse::MakeResponse("تم تسجيل القائمه بنجاح",true,200);
+        return BaseResponse::MakeResponse(null,true,["success message"=>"تم تسجيل القائمه بنجاح"]);
     }
 
 }

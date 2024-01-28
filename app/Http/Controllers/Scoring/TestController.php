@@ -15,18 +15,18 @@ class TestController extends Controller
         $user=Auth::user();
         Profile::updateOrCreate(
             [
-                "user_id"=>auth()->user()->id
+                "user_id"=>$user->id
             ],
             [
-                "user_id"=>auth()->user()->id,
-                "testScore"=>$request->score
+                "user_id"=>$user->id,
+                "isPatient"=>$request->score
             ]
         );
-        return BaseResponse::MakeResponse(null,true,["message"=>"تم تسجيل النتيجه بنجاح"]);
+        return BaseResponse::MakeResponse(null,true,["success message"=>"تم تسجيل النتيجه بنجاح"]);
     }
-    public function getTestResult(Request $request)
+    public function getTestResult()
     {
         $profile=Profile::where("user_id",auth()->user()->id)->first();
-        return BaseResponse::MakeResponse($profile->testScore,true,["message"=>"test Score"]);
+        return BaseResponse::MakeResponse(["isPatient"=>$profile->isPatient],true,["success message"=>200]);
     }
 }

@@ -15,7 +15,7 @@ class ProfileController extends Controller
     {
         $data=User::with("profile")->where("id",auth()->user()->id)->first();
         $user=new UserResource($data);
-        return BaseResponse::MakeResponse($user,true,["success code"=>200]);
+        return BaseResponse::MakeResponse(["profile data"=>$user],true,["success message"=>200]);
     }
     public function changePassword(ChangePassword $request)
     {
@@ -23,7 +23,7 @@ class ProfileController extends Controller
         $user=User::find(auth()->user()->id);
         if(!Hash::check($request->oldPassword, $user->password))
         {
-            return BaseResponse::MakeResponse(null,false,["Error message"=>" كلمات المرور القديمه غير صحيحه"]);
+            return BaseResponse::MakeResponse(null,false,["error message"=>" كلمات المرور القديمه غير صحيحه"]);
         }
         $user->password = Hash::make($request->newPassword);
         $user->save();
@@ -36,6 +36,6 @@ class ProfileController extends Controller
         {
             $totalScore=0;
         }
-        return BaseResponse::MakeResponse($totalScore,true,["success message"=>200]);
+        return BaseResponse::MakeResponse(["total score"=>$totalScore],true,["success message"=>200]);
     }
 }
