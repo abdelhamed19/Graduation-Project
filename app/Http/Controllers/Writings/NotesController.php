@@ -21,7 +21,7 @@ class NotesController extends Controller
         {
             return BaseResponse::MakeResponse(null,false,"لا يوجد ملاحظات");
         }
-        return BaseResponse::MakeResponse(["notes"=>NotesResource::collection($notes)],true,200);
+        return BaseResponse::MakeResponse(["notes"=>NotesResource::collection($notes)],true,["successMessage"=>200]);
     }
     /**
      * Store a newly created resource in storage.
@@ -36,7 +36,7 @@ class NotesController extends Controller
             "user_id"=>auth()->user()->id,
             "body"=>$request->body
         ]);
-        return BaseResponse::MakeResponse(null,true,"تم الحفظ بنجاح");
+        return BaseResponse::MakeResponse(null,true,["successMessage"=>200]);
     }
 
     /**
@@ -47,9 +47,9 @@ class NotesController extends Controller
         $writing=Writing::find($id);
         if($writing && $writing->user_id==auth()->user()->id)
         {
-            return BaseResponse::MakeResponse(["note"=>$writing->body],true,["success message"=>200]);
+            return BaseResponse::MakeResponse(["note"=>$writing->body],true,["successMessage"=>200]);
         }
-        return BaseResponse::MakeResponse(null,false,["error message"=>"Not Found"]);
+        return BaseResponse::MakeResponse(null,false,["errorMessage"=>404]);
     }
 
     /**
@@ -63,9 +63,9 @@ class NotesController extends Controller
             $note->update([
                 "body"=>$request->body
             ]);
-            return BaseResponse::MakeResponse(null,true,["success message"=>"تم التعديل بنجاح"]);
+            return BaseResponse::MakeResponse(null,true,["successMessage"=> 200]);
         }
-            return BaseResponse::MakeResponse(null,false,["error message"=>"لا يمكنك تعديل الملاحظه"]);
+            return BaseResponse::MakeResponse(null,false,["errorMessage"=>404]);
     }
 
     /**
@@ -77,8 +77,8 @@ class NotesController extends Controller
         if($note && $note->user_id==auth()->user()->id)
         {
             $note->delete();
-            return BaseResponse::MakeResponse(null,true,["success message"=>"تم الحذف بنجاح"]);
+            return BaseResponse::MakeResponse(null,true,["successMessage"=> 200]);
         }
-        return BaseResponse::MakeResponse(null, false,["error message"=>"لا يمكنك حذف الملاحظه"]);
+        return BaseResponse::MakeResponse(null, false,["errorMessage"=>404]);
     }
 }

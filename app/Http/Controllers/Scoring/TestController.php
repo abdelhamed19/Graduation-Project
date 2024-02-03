@@ -22,11 +22,11 @@ class TestController extends Controller
                 "isPatient"=>$request->score
             ]
         );
-        return BaseResponse::MakeResponse(null,true,["success message"=>"تم تسجيل النتيجه بنجاح"]);
+        return BaseResponse::MakeResponse(null,true,["successMessage"=>200]);
     }
     public function getTestResult()
     {
         $profile=Profile::where("user_id",auth()->user()->id)->first();
-        return BaseResponse::MakeResponse(["isPatient"=>$profile->isPatient],true,["success message"=>200]);
+        return BaseResponse::MakeResponse(["isPatient"=>$profile->isPatient],true,["successMessage"=>200]);
     }
 }

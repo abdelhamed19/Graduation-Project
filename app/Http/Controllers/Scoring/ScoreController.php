@@ -29,7 +29,7 @@ class ScoreController extends Controller
         callbacks::updateTotalScore();
         callbacks::updateLevelScore($activity->level_id);
         callbacks::updateLevelStatus($activity->level_id);
-        return BaseResponse::MakeResponse(null,true,["success message"=>200]);
+        return BaseResponse::MakeResponse(null,true,["successMessage"=>200]);
     }
 
 }

@@ -13,7 +13,7 @@ class LevelController extends Controller
     public function showLevelActivities($id)
     {
         $level= Level::with("activities")->find($id)->activities;
-        return BaseResponse::MakeResponse(["level Activities"=>LevelResource::collection($level)],true,["success message"=>200]);
+        return BaseResponse::MakeResponse(["level Activities"=>LevelResource::collection($level)],true,["successMessage"=>200]);
     }
     public function getLevelScore($id)
     {
@@ -23,7 +23,7 @@ class LevelController extends Controller
         {
             $level=0;
         }
-        return BaseResponse::MakeResponse(["level score"=>$level],true,["success message"=>200]);
+        return BaseResponse::MakeResponse(["level score"=>$level],true,["successMessage"=>200]);
     }
 
     public function getLevelStatus($id)
@@ -33,14 +33,14 @@ class LevelController extends Controller
         $levelStatus = (bool) $levelStatus;
         if($id == 1)
         {
-            return BaseResponse::MakeResponse(["unlocked"=>true],true,["success message"=>200]);
+            return BaseResponse::MakeResponse(["unlocked"=>true],true,["successMessage"=>200]);
         }
         if($id != 1 && $levelStatus == null )
         {
             $levelStatus=false;
-            return BaseResponse::MakeResponse(["unlocked"=>$levelStatus],true,["success message"=>200]);
+            return BaseResponse::MakeResponse(["unlocked"=>$levelStatus],true,["successMessage"=>200]);
         }
-        return BaseResponse::MakeResponse(["unlocked"=>$levelStatus],true,["success message"=>200]);
+        return BaseResponse::MakeResponse(["unlocked"=>$levelStatus],true,["successMessage"=>200]);
 
     }
 }

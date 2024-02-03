@@ -27,7 +27,7 @@ class AuthController extends Controller
         "user_id" => $user->id,
         "username"=>$user->name,
         ]);
-       return BaseResponse::MakeResponse(["token"=>$token],true,["success message"=>200]);
+       return BaseResponse::MakeResponse(["token"=>$token],true,["successMessage"=>200]);
     }
 
     public function login(LoginRequest $request)
@@ -35,15 +35,15 @@ class AuthController extends Controller
         $user=User::where("email",$request->email)->first();
         if(!$user || !Hash::check($request->password,$user->password))
         {
-            return BaseResponse::MakeResponse(null,false,["Error message"=>" البريد الإلكتروني أو كلمة المرور غير صحيحه"]);
+            return BaseResponse::MakeResponse(null,false,["errorMessage"=>" البريد الإلكتروني أو كلمة المرور غير صحيحه"]);
         }
         $token = $user->createToken('RegisterToken')->plainTextToken;
-        return BaseResponse::MakeResponse(["token"=>$token,"role"=>$user->role->role],true,["success message"=>200]);
+        return BaseResponse::MakeResponse(["token"=>$token,"role"=>$user->role->role],true,["successMessage"=>200]);
     }
     public function logout(Request $request)
     {
         auth()->user()->tokens()->delete();
-        return BaseResponse::MakeResponse(null,true,["success message"=>200]);
+        return BaseResponse::MakeResponse(null,true,["successMessage"=>200]);
     }
 
 }
