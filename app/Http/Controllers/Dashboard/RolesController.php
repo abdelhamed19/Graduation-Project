@@ -15,12 +15,12 @@ class RolesController extends Controller
     {
         $admin=auth()->user()->role->role;
         if(!in_array($admin,$this->roles)){
-            return BaseResponse::MakeResponse(null,false,"You are not allowed to do this, Only Super-Admins can do this");
+            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"You are not allowed to do this, Only Super-Admins can do this"]);
         }
 
         $user=User::where("email",$request->email)->first();
         if(!$user){
-            return BaseResponse::MakeResponse(null,false,"User Not Found");
+            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"User Not Found"]);
         }
         Role::updateOrCreate(
             ['user_id' => $user->id],
@@ -29,24 +29,24 @@ class RolesController extends Controller
                 "username" => $user->name
             ]
         );
-        return BaseResponse::MakeResponse(null,true,"Role Created successfully");
+        return BaseResponse::MakeResponse(null,true,["successMessage"=>"Role Created successfully"]);
     }
     public function updateRole(RoleRequest $request)
     {
         $admin=auth()->user()->role->role;
         if(!in_array($admin,$this->roles)){
-            return BaseResponse::MakeResponse(null,false,"You are not allowed to do this, Only Super-Admins can do this");
+            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"You are not allowed to do this, Only Super-Admins can do this"]);
         }
 
         $user=User::where("email",$request->email)->first();
         if(!$user){
-            return BaseResponse::MakeResponse(null,false,"User Not Found");
+            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"User Not Found"]);
         }
          $user->role()->update([
             "user_id"=>$user->id,
             "username"=>$user->name,
             "role"=>$request->role
         ]);
-        return BaseResponse::MakeResponse(null,true,"Role Updated successfully");
+        return BaseResponse::MakeResponse(null,true,["successMessage"=>"Role Updated successfully"]);
     }
 }

@@ -21,7 +21,7 @@ class HomeController extends Controller
         {
             $totalScore=0;
         }
-        return BaseResponse::MakeResponse(["username"=>$username,"totalscore"=> $totalScore],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["username"=>$username,"totalScore"=> $totalScore],true,["successMessage"=>200]);
     }
 
 }

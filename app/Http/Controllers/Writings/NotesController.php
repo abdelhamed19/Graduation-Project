@@ -19,7 +19,7 @@ class NotesController extends Controller
         $notes=Auth::user()->writings;
         if($notes->count()==0)
         {
-            return BaseResponse::MakeResponse(null,false,"لا يوجد ملاحظات");
+            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"لا يوجد ملاحظات"]);
         }
         return BaseResponse::MakeResponse(["notes"=>NotesResource::collection($notes)],true,["successMessage"=>200]);
     }

@@ -36,24 +36,24 @@ class ActivityController extends Controller
     {
         $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
         $mentalActivity=Activity::whereIn("id",$activity)->where("type","mental")->count();
-        return BaseResponse::MakeResponse(["Completed Mental Activities"=>$mentalActivity],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["CompletedMentalActivities"=>$mentalActivity],true,["successMessage"=>200]);
     }
     public function getSocialCompletedActivities()
     {
         $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
         $socialActivity=Activity::whereIn("id",$activity)->where("type","social")->count();
-        return BaseResponse::MakeResponse(["Completed Social Activities"=>$socialActivity],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["CompletedSocialActivities"=>$socialActivity],true,["successMessage"=>200]);
     }
     public function getPhysicalCompletedActivities()
     {
         $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
         $physicalActivity=Activity::whereIn("id",$activity)->where("type","physical")->count();
-        return BaseResponse::MakeResponse(["Completed Physical Activities"=>$physicalActivity],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["CompletedPhysicalActivities"=>$physicalActivity],true,["successMessage"=>200]);
     }
     public function getEmotionalCompletedActivities()
     {
         $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
         $emotionalActivity=Activity::whereIn("id",$activity)->where("type","emotional")->count();
-        return BaseResponse::MakeResponse(["Completed Emotional Activities"=>$emotionalActivity],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["CompletedEmotionalActivities"=>$emotionalActivity],true,["successMessage"=>200]);
     }
 }

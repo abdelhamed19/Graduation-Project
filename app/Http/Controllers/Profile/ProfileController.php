@@ -15,7 +15,7 @@ class ProfileController extends Controller
     {
         $data=User::with("profile")->where("id",auth()->user()->id)->first();
         $user=new UserResource($data);
-        return BaseResponse::MakeResponse(["profile data"=>$user],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["profile"=>$user],true,["successMessage"=>200]);
     }
     public function changePassword(ChangePassword $request)
     {
@@ -36,6 +36,6 @@ class ProfileController extends Controller
         {
             $totalScore=0;
         }
-        return BaseResponse::MakeResponse(["total score"=>$totalScore],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["totalScore"=>$totalScore],true,["successMessage"=>200]);
     }
 }

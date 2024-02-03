@@ -13,7 +13,7 @@ class LevelController extends Controller
     public function showLevelActivities($id)
     {
         $level= Level::with("activities")->find($id)->activities;
-        return BaseResponse::MakeResponse(["level Activities"=>LevelResource::collection($level)],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["levelActivities"=>LevelResource::collection($level)],true,["successMessage"=>200]);
     }
     public function getLevelScore($id)
     {
@@ -23,7 +23,7 @@ class LevelController extends Controller
         {
             $level=0;
         }
-        return BaseResponse::MakeResponse(["level score"=>$level],true,["successMessage"=>200]);
+        return BaseResponse::MakeResponse(["levelScore"=>$level],true,["successMessage"=>200]);
     }
 
     public function getLevelStatus($id)
