@@ -86,8 +86,11 @@ class ActivitySeeder extends Seeder
         ]);
         Activity::create([
             "level_id" => 2,
-            "title" => "call",
-            "description" => ["call a friend", "call a friend", "call a friend"],
+            "title" => "مجتمعنا",
+            "description" => [
+            "انضم الى مجتمعنا عبر تطبيق ديسكورد ",
+             "حيث ستجد العديد من لاشخاص الذين يواجهون نفس المشكله هناك",
+              "يمكنك تبادل تجاربك فى الرحله العلاجيه و التشجيع المتبادل بينكم"],
             "type" => "social",
         ]);
         // LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL 33333333333333
@@ -115,8 +118,9 @@ class ActivitySeeder extends Seeder
         ]);
         Activity::create([
             "level_id" => 3,
-            "title" => "call",
-            "description" => ["call a friend", "call a friend", "call a friend"],
+            "title" => "اللغه والأدب",
+            "description" => ["قم بقراءت روايات او قصص قصيره واجتمع مع الاصدقاء لسرد احداث هذه القصه",
+             "يساعد هذا فى تنمية مهارت القراء وسرد الاحداث سيساعد فى التنميه الفكريه والعقليه"],
             "type" => "social",
         ]);
         // LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL 4444444444444
@@ -149,8 +153,9 @@ class ActivitySeeder extends Seeder
         ]);
         Activity::create([
             "level_id" => 4,
-            "title" => "call",
-            "description" => ["call a friend", "call a friend", "call a friend"],
+            "title" => "دروس التصوير الفوتوجرافى",
+            "description" => ["قم بالذهاب الى اماكن التصوير الفوتوجرافى سيساعد على تعلم حرفه جديده وقضاء وقت ممتع ",
+             "وايضا التعرف على اشخاص جديده ومشاركة الفكر بينكم مما ينمى لديك مهارة التواصل الجتماعى"],
             "type" => "social",
         ]);
         // LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL 5555555555555
@@ -185,8 +190,8 @@ class ActivitySeeder extends Seeder
         ]);
         Activity::create([
             "level_id" => 5,
-            "title" => "call",
-            "description" => ["call a friend", "call a friend", "call a friend"],
+            "title" => "زيارة المتنزهات و التامل ",
+            "description" => ["قم بزيارة المتنزهات المحلية وشارك في اليوغا أو التأمل في الهواء الطلق "],
             "type" => "social",
         ]);
         // LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL 6666666666666
@@ -216,9 +221,10 @@ class ActivitySeeder extends Seeder
         ]);
         Activity::create([
             "level_id" => 6,
-            "title" => "",
-            "description" => ["", "", ""],
-            "type" => "",
+            "title" => "حضور ندوات ، ورش عمل",
+            "description" => ["قم بالتسجيل فى ندوات او ورش عمل حول موضوعات تهمك سواء كان ذلك تعلم لغه جديده او تعلم اى مهاره تهمك",
+             "سيساعد على التعرف على اشخاص وتعلم مهارات جديده تفيدك وتعذذ مهارتك"],
+            "type" => "social",
         ]);
         // LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL 7777777777777
         Activity::create([
@@ -248,15 +254,17 @@ class ActivitySeeder extends Seeder
         ]);
         Activity::create([
             "level_id" => 7,
-            "title" => "",
-            "description" => ["", "", ""],
-            "type" => "",
+            "title" => "تجربة مطعم او مقهى",
+            "description" => ["قم باستكشاف اماكن جديده لتناول الطعام مع الاصدقاء هذه طريقه لتقضية وقت ممتع او الزهاب الى مقهى لمتابعة مبارة كرة قدم لفريقك المفضل",
+             "أو الذهاب الى بلايستيشن لتقضية موقت ممتع مع الاصدقاء اثناء لعب العاب الفيديو"],
+            "type" => "social",
         ]);
         // LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL 8888888888888
         Activity::create([
             "level_id" => 8,
-            "title" => "",
-            "description" => ["", "", ""],
+            "title" => "السباحه؟ ام الصاله الرياضية",
+            "description" => ["السباحه احد الرياضات الجيده للصحه البدنيه والنفسيه حاول الذهاب الى النادى الرياضى والسباحه لمدة لا تقل عن 30 دقيقه",
+             "إذا كانت رياضة السباحه غير متاحه الصاله الرياضيه هي البديل الجيد للسباحه"],
             "type" => "physical",
         ]);
         Activity::create([
@@ -276,9 +284,10 @@ class ActivitySeeder extends Seeder
         ]);
         Activity::create([
             "level_id" => 8,
-            "title" => "",
-            "description" => ["", "", ""],
-            "type" => "",
+            "title" => "الموسيقى والفنون",
+            "description" => ["قم بحضور حفلات موسيقيه مع الاصدقاء",
+             "يساعد هذا على صفاء الذهن وقضاء وقت ممتع مع  الاصدقاء او العائله"],
+            "type" => "social",
         ]);
     }
 }
