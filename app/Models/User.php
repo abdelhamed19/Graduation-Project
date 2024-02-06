@@ -69,4 +69,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Role::class)->withDefault();
     }
+    public function status()
+    {
+        return $this->hasMany(Status::class);
+    }
 }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Models\{Role,User,Profile};
+use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Helpers\BaseResponse;
-use App\Http\Requests\{UserRequest,LoginRequest};
+use App\Models\{Role,User,Profile};
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\{UserRequest,LoginRequest};
 
 class AuthController extends Controller
 {
@@ -23,9 +24,11 @@ class AuthController extends Controller
         );
         $token = $user->createToken('RegisterToken')->plainTextToken;
         Profile::create(["user_id" => $user->id]);
-        Role::create([
+        Status::create([
         "user_id" => $user->id,
-        "username"=>$user->name,
+        "level_id" => 1,
+        "score" => 0,
+        "unlocked" => 1,
         ]);
        return BaseResponse::MakeResponse(["token"=>$token],true,["successMessage"=>200]);
     }

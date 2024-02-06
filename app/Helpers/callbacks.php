@@ -2,6 +2,7 @@
 namespace App\Helpers;
 
 use App\Models\Score;
+use App\Models\Status;
 use App\Models\Profile;
 use Illuminate\Support\Facades\DB;
 
@@ -45,17 +46,16 @@ Class callbacks
     }
     public static function updateLevelStatus($id)
     {
-        $filteredRecords = DB::table('level_scores')->where('user_id', auth()->user()->id)
-        ->where("level_id",$id)->first();
+        $filteredRecords = Status::where('user_id', auth()->user()->id)->where("level_id",$id)->first();
 
         if($filteredRecords->score >= 3)
         {
-            DB::table('level_scores')->where('user_id', auth()->user()->id)
-            ->where("level_id",$id)->update(["unlocked"=>true]);
-        }
-        else{
-            DB::table('level_scores')->where('user_id', auth()->user()->id)
-            ->where("level_id",$id)->update(["unlocked"=>false]);
+            Status::where('user_id', auth()->user()->id)
+            ->where("level_id",$id+1)->updateOrCreate([
+                "user_id"=>auth()->user()->id,
+                "level_id"=>$id+1,
+                "unlocked"=>1
+            ]);
         }
     }
 }

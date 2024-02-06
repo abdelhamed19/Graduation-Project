@@ -13,6 +13,8 @@ Route::middleware(['auth:sanctum','checkRole:admin,super-admin'])->group(functio
 
 
 Route::middleware(['auth:sanctum','checkRole:admin,super-admin'])->group(function () {
+    Route::get("roles",[RolesController::class,"index"]);
     Route::post("add-role",[RolesController::class,"addNewRole"]);
     Route::put("update-role",[RolesController::class,"updateRole"]);
+    Route::delete("delete-role/{id}",[RolesController::class,"deleteRole"]);
 });
