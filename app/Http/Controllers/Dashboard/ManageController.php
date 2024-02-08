@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Resources\ActivityCollection;
 use App\Models\{Level,Activity};
 use Illuminate\Http\Request;
 use App\Helpers\BaseResponse;
@@ -10,6 +11,12 @@ use App\Http\Controllers\Controller;
 class ManageController extends Controller
 {
     protected $roles=["super-admin"];
+    public function index()
+    {
+        $activities=Activity::paginate(8);
+        return new ActivityCollection($activities);
+        //return BaseResponse::MakeResponse($active,true,["successMessage"=>200]);
+    }
 
     public function addLevel(Request $request)
     {

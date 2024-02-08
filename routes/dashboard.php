@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth:sanctum','checkRole:admin,super-admin'])->group(function () {
+    Route::get("activities",[ManageController::class,"index"]);
     Route::post("addLevel",[ManageController::class,"addLevel"]);
     Route::post("addActivity",[ManageController::class,"addActivity"]);
     Route::delete("deleteLevel/{id}",[ManageController::class,"deleteLevel"]);
