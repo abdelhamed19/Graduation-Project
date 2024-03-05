@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home\{HomeController,LevelController,ActivityController};
-use App\Http\Controllers\Writings\{NotesController,TasksController};
+use App\Http\Controllers\Writings\{NotesController, PostController, TasksController};
 
 
 // Home Routes
@@ -34,6 +34,12 @@ Route::middleware('auth:sanctum')->group(function (){
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('tasks/{created_at}',[TasksController::class,"show"]);
     Route::post('tasks', [TasksController::class,"store"]);
+});
+
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('posts',[PostController::class,"index"]);
+    Route::post('post', [PostController::class,"store"]);
+    Route::post('like/{post}', [PostController::class,"like"]);
 });
 
 

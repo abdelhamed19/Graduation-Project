@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Activity;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/activity', function () {
+    $activity= Activity::all();
+    foreach ($activity as  $act) {
+        return $act->description[0];
+    }
+ });
+
+

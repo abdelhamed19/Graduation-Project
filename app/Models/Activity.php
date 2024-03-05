@@ -12,6 +12,10 @@ class Activity extends Model
     protected $casts = [
         'description' => 'array'
     ];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
     public function level()
     {
@@ -22,5 +26,6 @@ class Activity extends Model
     {
         return $this->hasMany(Score::class);
     }
+
 
 }
