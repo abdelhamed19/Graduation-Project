@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Profile;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Helpers\BaseResponse;
-use App\Models\{Role,User,Profile};
+use App\Models\{Role,User,Profile, Tracking};
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\{UserRequest,LoginRequest};
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -40,12 +41,22 @@ class AuthController extends Controller
         {
             return BaseResponse::MakeResponse(null,false,["errorMessage"=>" البريد الإلكتروني أو كلمة المرور غير صحيحه"]);
         }
+        $user->trackings()->create([
+            'login_date' => now(),
+            'login_time' => now(),
+        ]);
         $token = $user->createToken('RegisterToken')->plainTextToken;
         return BaseResponse::MakeResponse(["token"=>$token,"role"=>$user->role->role],true,["successMessage"=>200]);
     }
     public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
+        $user=Auth::user();
+        $track=Tracking::where('user_id',$user->id)->orderBy("login_time","desc")->first();
+        $track->update([
+            'logout_date' => now(),
+            'logout_time' => now(),
+        ]);
+        $user->tokens()->delete();
         return BaseResponse::MakeResponse(null,true,["successMessage"=>200]);
     }
 

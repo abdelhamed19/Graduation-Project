@@ -45,3 +45,4 @@ Route::middleware('auth:sanctum')->group(function (){
 
 require __DIR__.'/dashboard.php';
 require __DIR__.'/user.php';
+require __DIR__.'/doctor.php';
