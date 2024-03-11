@@ -36,10 +36,12 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('tasks', [TasksController::class,"store"]);
 });
 
+// Community routes
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('posts',[PostController::class,"index"]);
     Route::post('post', [PostController::class,"store"]);
     Route::post('like/{post}', [PostController::class,"like"]);
+    Route::post('unlike/{post}', [PostController::class,"unlike"]);
 });
 
 

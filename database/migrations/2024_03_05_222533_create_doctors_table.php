@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('profile_image')->nullable();
             $table->string('ssn_image')->nullable();
             $table->string('card_image')->nullable();
+            $table->rememberToken();
         });
     }
 

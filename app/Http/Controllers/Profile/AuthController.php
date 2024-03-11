@@ -41,10 +41,13 @@ class AuthController extends Controller
         {
             return BaseResponse::MakeResponse(null,false,["errorMessage"=>" البريد الإلكتروني أو كلمة المرور غير صحيحه"]);
         }
-        $user->trackings()->create([
-            'login_date' => now(),
-            'login_time' => now(),
-        ]);
+        if ($user->role->role == null)
+        {
+            $user->trackings()->create([
+                'login_date' => now(),
+                'login_time' => now(),
+            ]);
+        }
         $token = $user->createToken('RegisterToken')->plainTextToken;
         return BaseResponse::MakeResponse(["token"=>$token,"role"=>$user->role->role],true,["successMessage"=>200]);
     }

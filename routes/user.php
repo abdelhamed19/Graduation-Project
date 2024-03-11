@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Home\HomeArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home\ActivityController;
 use App\Http\Controllers\Scoring\{ScoreController,TestController};
@@ -43,3 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("getPhysicalCompletedActivities",[ActivityController::class,"getPhysicalCompletedActivities"]);
     Route::get("getEmotionalCompletedActivities",[ActivityController::class,"getEmotionalCompletedActivities"]);
     });
+
+// Activity Routes
+
+    Route::get("platinum-articles",[HomeArticleController::class,"platinum"]);
+

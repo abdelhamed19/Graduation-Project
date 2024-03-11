@@ -10,23 +10,13 @@ use App\Http\Controllers\Controller;
 
 class RolesController extends Controller
 {
-    protected $roles=["super-admin"];
     public function index()
     {
-        $admin=auth()->user()->role->role;
-        if($admin=="admin" || $admin=="super-admin"){
             $roles=Role::all();
             return BaseResponse::MakeResponse($roles,true,["successMessage"=>"Roles Fetched successfully"]);
-        }
-        return BaseResponse::MakeResponse(null,false,["errorMessage"=>"You are not allowed to do this, Only Super-Admins can do this"]);
     }
     public function addNewRole(Request $request, RoleRequest $roleRequest)
     {
-        $admin=auth()->user()->role->role;
-        if(!in_array($admin,$this->roles)){
-            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"You are not allowed to do this, Only Super-Admins can do this"]);
-        }
-
         $user=User::where("email",$request->email)->first();
         if(!$user){
             return BaseResponse::MakeResponse(null,false,["errorMessage"=>"User Not Found"]);
@@ -42,11 +32,6 @@ class RolesController extends Controller
     }
     public function updateRole(RoleRequest $request)
     {
-        $admin=auth()->user()->role->role;
-        if(!in_array($admin,$this->roles)){
-            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"You are not allowed to do this, Only Super-Admins can do this"]);
-        }
-
         $user=User::where("email",$request->email)->first();
         if(!$user){
             return BaseResponse::MakeResponse(null,false,["errorMessage"=>"User Not Found"]);
@@ -60,10 +45,6 @@ class RolesController extends Controller
     }
     public function deleteRole($id)
     {
-        $admin=auth()->user()->role->role;
-        if(!in_array($admin,$this->roles)){
-            return BaseResponse::MakeResponse(null,false,["errorMessage"=>"You are not allowed to do this, Only Super-Admins can do this"]);
-        }
         $role=Role::findOrFail($id);
         if($role->role=="super-admin"){
             return BaseResponse::MakeResponse(null,false,["errorMessage"=>"You are not allowed to delete this role"]);
