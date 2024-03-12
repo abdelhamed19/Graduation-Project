@@ -13,6 +13,10 @@ class Subscription extends Model
     use HasFactory;
     protected $guarded=[];
     public $timestamps=false;
+    protected $hidden=["receipt"];
+    protected $appends=[
+        "image_url"
+    ];
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);
@@ -38,5 +42,9 @@ class Subscription extends Model
         $currentDate = Carbon::now();
         $newDate = $currentDate->addDays($days);
         return $newDate;
+    }
+    public function getImageUrlAttribute()
+    {
+        return asset('public/receipts/'.$this->profile_image);
     }
 }

@@ -10,6 +10,8 @@ Route::post("doctor-login",[DoctorController::class,"doctorLogin"]);
 Route::post("clinic",[DoctorController::class,"addClinic"]);
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get("doctor-profile",[DoctorController::class,"profile"]);
+    Route::post("doctor-logout",[DoctorController::class,"logout"]);
     Route::post("subscribe-plan",[DoctorController::class,"subscripePlan"]);
     Route::resource("articles",ArticleController::class);
     Route::resource("coupon",CouponController::class);

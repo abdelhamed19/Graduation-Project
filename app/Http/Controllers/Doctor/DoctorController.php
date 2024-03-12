@@ -24,12 +24,6 @@ class DoctorController extends Controller
         $token = $doctor->createToken('doctor-registration-token')->plainTextToken;
         return BaseResponse::MakeResponse(["doctor"=>$doctor,'token'=>$token],true,['successMessage'=>"Doctor Created successfully"]);
     }
-    public function addClinic(ClinicRequest $request)
-    {
-        $validated=$request->validated();
-        Clinic::create($validated);
-        return BaseResponse::MakeResponse(null,true,['successMessage'=>"Clinic Created successfully"]);
-    }
     public function doctorLogin(DoctorLoginRequest $request)
     {
         $validated=$request->validated();
@@ -40,6 +34,12 @@ class DoctorController extends Controller
         $token = $doctor->createToken('doctor-token')->plainTextToken;
         $subscription=$doctor->subscription;
         return BaseResponse::MakeResponse(["subscription"=>$subscription,"token" => $token], true, ["successMessage" => 200]);
+    }
+    public function addClinic(ClinicRequest $request)
+    {
+        $validated=$request->validated();
+        Clinic::create($validated);
+        return BaseResponse::MakeResponse(null,true,['successMessage'=>"Clinic Created successfully"]);
     }
 
     public function subscripePlan(Request $request)
@@ -63,5 +63,18 @@ class DoctorController extends Controller
         $coupon=$doctor->subscription->coupon_remaining;
         $articles=$doctor->subscription->posts_remaining;
         return BaseResponse::MakeResponse(["Coupons-Remaining"=>$coupon,"articles"=>$articles], true, ["successMessage" => "Info Retrived succefully"]);
+    }
+    public function profile(Request $request)
+    {
+        $doctor=Auth::guard("doctors")->user();
+        $clinic=$doctor->load("clinics:doctor_id,government,city,street");
+        $subscription=$doctor->load("subscription:doctor_id,end_at");
+        return BaseResponse::MakeResponse(["doctor-info"=>$doctor], true, ["successMessage" => "Info Retrived succefully"]);
+    }
+    public function logout()
+    {
+        $doctor=Auth::guard("doctors")->user();
+        $doctor->tokens()->delete();
+        return BaseResponse::MakeResponse(null,true,["successMessage"=>200]);
     }
 }

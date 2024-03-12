@@ -17,7 +17,11 @@ class Doctor extends Authenticatable
     public $timestamps=false;
     protected $hidden=[
         "password",
-        "remember_token"
+        "remember_token",
+        "profile_image","card_image","ssn_image"
+    ];
+    protected $appends=[
+        "image_url"
     ];
     protected $casts = [
         'password' => 'hashed',
@@ -55,5 +59,15 @@ class Doctor extends Authenticatable
                 "doctor_id"=>$doctor->id,
             ]);
         });
+    }
+    public function getImageUrlAttribute()
+    {
+        $images=["profile_image"=>$this->profile_image,"card_image"=>$this->card_image,"ssn_image"=>$this->ssn_image];
+        $imagePath=[];
+        foreach ($images as $type => $image)
+        {
+            $imagePath[$type] = asset('public/assets/'.$image);
+        }
+        return $imagePath;
     }
 }
