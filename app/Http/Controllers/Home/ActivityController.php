@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Models\{Score,Activity};
 use App\Helpers\BaseResponse;
+use App\Models\{Score,Activity};
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ActivityResource;
 
@@ -32,28 +33,14 @@ class ActivityController extends Controller
         $IncompleteActivity=$totalActivity-$completeActivity;
         return BaseResponse::MakeResponse(["In complete Activity"=>$IncompleteActivity],true,["successMessage"=>200]);
     }
-    public function getMentalCompletedActivities()
+    public function typeOfCompletedActivities()
     {
-        $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
-        $mentalActivity=Activity::whereIn("id",$activity)->where("type","mental")->count();
-        return BaseResponse::MakeResponse(["CompletedMentalActivities"=>$mentalActivity],true,["successMessage"=>200]);
+        $types=["mental"=>"mental","social"=>"social","emotional"=>"emotional","physical"=>"physical"];
+        foreach($types as $key => $value)
+        {
+            $mentalActivity[$key]=Score::type($value);
+        }
+        return BaseResponse::MakeResponse(["activities"=>$mentalActivity],true,["successMessage"=>200]);
     }
-    public function getSocialCompletedActivities()
-    {
-        $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
-        $socialActivity=Activity::whereIn("id",$activity)->where("type","social")->count();
-        return BaseResponse::MakeResponse(["CompletedSocialActivities"=>$socialActivity],true,["successMessage"=>200]);
-    }
-    public function getPhysicalCompletedActivities()
-    {
-        $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
-        $physicalActivity=Activity::whereIn("id",$activity)->where("type","physical")->count();
-        return BaseResponse::MakeResponse(["CompletedPhysicalActivities"=>$physicalActivity],true,["successMessage"=>200]);
-    }
-    public function getEmotionalCompletedActivities()
-    {
-        $activity=Score::where("user_id",auth()->user()->id)->pluck("activity_id");
-        $emotionalActivity=Activity::whereIn("id",$activity)->where("type","emotional")->count();
-        return BaseResponse::MakeResponse(["CompletedEmotionalActivities"=>$emotionalActivity],true,["successMessage"=>200]);
-    }
+
 }

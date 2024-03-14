@@ -39,10 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get("getCompletedActivities",[ActivityController::class,"getCompletedActivities"]);
     Route::get("getInCompletedActivities",[ActivityController::class,"getInCompletedActivities"]);
-    Route::get("getMentalCompletedActivities",[ActivityController::class,"getMentalCompletedActivities"]);
-    Route::get("getSocialCompletedActivities",[ActivityController::class,"getSocialCompletedActivities"]);
-    Route::get("getPhysicalCompletedActivities",[ActivityController::class,"getPhysicalCompletedActivities"]);
-    Route::get("getEmotionalCompletedActivities",[ActivityController::class,"getEmotionalCompletedActivities"]);
+    Route::get("type",[ActivityController::class,"typeOfCompletedActivities"]);
     });
 
 // Activity Routes

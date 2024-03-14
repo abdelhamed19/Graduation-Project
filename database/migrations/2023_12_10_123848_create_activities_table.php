@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId("level_id")->constrained("levels")->cascadeOnDelete();
             $table->string("title");
             $table->json("description");
-            $table->enum("type",["عقل","حركه","مشاعر","مجتمع"]);
+            $table->enum("type",["mental","physical","emotional","social"]);
             $table->timestamps();
         });
     }
